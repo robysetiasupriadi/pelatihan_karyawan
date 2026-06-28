@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login — Sistem Pelatihan Karyawan</title>
+    <title>Login — APEX</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -36,6 +36,7 @@
             background: rgba(255,255,255,.06);
             border-radius: 50%;
             top: -150px; right: -150px;
+            animation: floatBlob1 9s ease-in-out infinite;
         }
         .left-panel::after {
             content: '';
@@ -44,6 +45,37 @@
             background: rgba(255,255,255,.05);
             border-radius: 50%;
             bottom: -80px; left: -80px;
+            animation: floatBlob2 11s ease-in-out infinite;
+        }
+
+        @keyframes floatBlob1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50%      { transform: translate(-30px, 40px) scale(1.1); }
+        }
+
+        @keyframes floatBlob2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50%      { transform: translate(25px, -35px) scale(1.15); }
+        }
+
+        /* ── Brand icon: wrapper + kotak border ── */
+        .brand-icon-wrap {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            z-index: 1;
+        }
+
+        .square-border {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border: 1.5px solid rgba(255,255,255,0.35);
+            border-radius: 22px;
         }
 
         .left-panel .brand-icon {
@@ -51,8 +83,27 @@
             background: rgba(255,255,255,.2);
             border-radius: 24px;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: 1.5rem;
             backdrop-filter: blur(10px);
+            position: relative;
+            animation: iconFloat 3.5s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-10px); }
+        }
+
+        .brand-icon .badge-cert {
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            width: 34px;
+            height: 34px;
+            background: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .left-panel h1 {
@@ -60,7 +111,21 @@
             font-size: 2rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: .75rem;
+            margin-bottom: .25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .left-panel .brand-subtitle {
+            color: rgba(255,255,255,.75);
+            text-align: center;
+            font-size: .8rem;
+            font-weight: 500;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .left-panel p {
@@ -69,11 +134,15 @@
             font-size: .95rem;
             max-width: 360px;
             line-height: 1.7;
+            position: relative;
+            z-index: 1;
         }
 
         .feature-list {
             list-style: none;
             padding: 0; margin: 2rem 0 0;
+            position: relative;
+            z-index: 1;
         }
         .feature-list li {
             color: rgba(255,255,255,.85);
@@ -103,25 +172,25 @@
         }
 
         .login-box {
-    width: 100%;
-    max-width: 450px;
-    }
+            width: 100%;
+            max-width: 450px;
+        }
 
-.login-box h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #111827;
-    text-align: center;
-    line-height: 1.2;
-    margin-bottom: .75rem;
-    } 
+        .login-box h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: .75rem;
+        }
 
-.login-box .subtitle {
-    text-align: center;
-    color: #6b7280;
-    font-size: .95rem;
-    margin-bottom: 2rem;
-    }
+        .login-box .subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: .95rem;
+            margin-bottom: 2rem;
+        }
 
         .form-label {
             font-size: .8rem;
@@ -217,10 +286,18 @@
 
 {{-- ── Sisi Kiri ── --}}
 <div class="left-panel">
-    <div class="brand-icon">
-        <i class="bi bi-mortarboard-fill text-white fs-3"></i>
+    <div class="brand-icon-wrap">
+        {{-- Kotak border statis, ganti dashed ring yang berputar --}}
+        <div class="square-border"></div>
+        <div class="brand-icon">
+            <i class="bi bi-people-fill text-white fs-3"></i>
+            <div class="badge-cert">
+                <i class="bi bi-patch-check-fill" style="color:#4f46e5;font-size:1rem"></i>
+            </div>
+        </div>
     </div>
-    <h1>Sistem Pelatihan<br>Karyawan</h1>
+    <h1>APEX</h1>
+    <div class="brand-subtitle">Application &amp; Process Excellence</div>
     <p>Platform digital untuk mengelola program pelatihan, absensi, penilaian, dan sertifikasi karyawan secara terpusat.</p>
 
     <ul class="feature-list">
@@ -251,13 +328,14 @@
 <div class="right-panel">
     <div class="login-box">
         <h2>
-    Selamat Datang Di<br>
-    Sistem Pelatihan Karyawan
-</h2>
+            Selamat Datang Di<br>
+            APEX
+        </h2>
 
-<p class="subtitle">
-    Masuk untuk mengakses dashboard pelatihan Anda
-</p>
+        <p class="subtitle">
+            Masuk untuk mengakses dashboard pelatihan Anda
+        </p>
+
         {{-- Error --}}
         @if($errors->any())
         <div class="alert alert-danger d-flex align-items-center gap-2 py-2 mb-3" style="border-radius:10px;font-size:.875rem">
@@ -344,7 +422,7 @@
         </p>
 
         <p class="text-center text-muted mt-2 mb-0" style="font-size:.75rem">
-            © {{ date('Y') }} Sistem Pelatihan Karyawan
+            © {{ date('Y') }} APEX
         </p>
     </div>
 </div>
@@ -366,7 +444,6 @@
     function fillLogin(email) {
         document.querySelector('input[name="email"]').value = email;
         document.getElementById('passwordInput').value = 'password';
-        // Highlight visual
         document.querySelector('input[name="email"]').focus();
     }
 </script>

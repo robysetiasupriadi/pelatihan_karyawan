@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') — Silatih</title>
+    <title>@yield('title', 'Dashboard') — APEX</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -327,8 +327,8 @@
             <i class="bi bi-mortarboard-fill text-white" style="font-size:.9rem"></i>
         </div>
         <div>
-            <div class="app-name">Silatih</div>
-            <div class="app-sub">Sistem Pelatihan Karyawan</div>
+            <div class="app-name">APEX</div>
+            <div class="app-sub">Application & Process Excellence</div>
         </div>
     </a>
 
