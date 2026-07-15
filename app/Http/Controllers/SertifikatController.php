@@ -14,7 +14,10 @@ class SertifikatController extends Controller
     // Daftar sertifikat milik karyawan yang login
     public function milik()
     {
-        $sertifikat = Auth::user()->sertifikat()
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $sertifikat = $user->sertifikat()
             ->with('pelatihan')
             ->latest()
             ->paginate(12);
@@ -74,22 +77,26 @@ class SertifikatController extends Controller
 
     public function show(Pelatihan $pelatihan, Sertifikat $sertifikat)
     {
-    // Pastikan hanya pemilik atau admin yang bisa lihat
-    if (Auth::user()->isKaryawan() && $sertifikat->user_id !== Auth::id()) {
-        abort(403);
-    }
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
 
-    $sertifikat->load('user', 'pelatihan.trainers');
-    return view('sertifikat.show', compact('sertifikat'));
+        // Pastikan hanya pemilik atau admin yang bisa lihat
+        if ($user->isKaryawan() && $sertifikat->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $sertifikat->load('user', 'pelatihan.trainers');
+        return view('sertifikat.show', compact('sertifikat'));
     }
 
     public function destroy(Pelatihan $pelatihan, Sertifikat $sertifikat)
-{
-    $sertifikat->delete();
+    {
+        $sertifikat->delete();
 
-    return redirect()->route('pelatihan.sertifikat.index', $pelatihan)
-        ->with('success', 'Sertifikat berhasil dihapus.');
-}
+        return redirect()->route('pelatihan.sertifikat.index', $pelatihan)
+            ->with('success', 'Sertifikat berhasil dihapus.');
+    }
+
     /**
      * Generate nomor sertifikat yang dipastikan unik.
      *

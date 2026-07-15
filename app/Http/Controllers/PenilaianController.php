@@ -45,7 +45,7 @@ class PenilaianController extends Controller
             ->with('success', 'Nilai berhasil disimpan.');
     }
 
-    // Input nilai semua peserta sekaligus
+
     public function bulkUpdate(Request $request, Pelatihan $pelatihan)
     {
         $request->validate([
