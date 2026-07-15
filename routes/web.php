@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriPelatihanController;
@@ -22,6 +23,12 @@ Route::middleware('guest')->group(function () {
     Route::post('/login',   [LoginController::class,    'login'])->name('login.post');
     Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
     Route::post('/register',[RegisterController::class, 'register'])->name('register.post');
+
+    // ─── Lupa Kata Sandi / Reset Password ───
+    Route::get('/forgot-password',  [PasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
 });
 
 // ═══════════════════════════════════════════════════

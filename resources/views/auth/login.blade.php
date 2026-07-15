@@ -276,6 +276,14 @@
         .demo-email { font-size: .78rem; color: #374151; transition: color .2s; }
         .demo-pass  { font-size: .72rem; color: #9ca3af; }
 
+        .forgot-link {
+            font-size: .8rem;
+            font-weight: 600;
+            color: #4f46e5;
+            text-decoration: none;
+        }
+        .forgot-link:hover { text-decoration: underline; color: #4338ca; }
+
         @media (max-width: 768px) {
             .left-panel { display: none; }
             .right-panel { width: 100%; }
@@ -336,6 +344,14 @@
             Masuk untuk mengakses dashboard pelatihan Anda
         </p>
 
+        {{-- Session status (mis. setelah reset password sukses) --}}
+        @if(session('status'))
+        <div class="alert alert-success d-flex align-items-center gap-2 py-2 mb-3" style="border-radius:10px;font-size:.875rem">
+            <i class="bi bi-check-circle-fill"></i>
+            {{ session('status') }}
+        </div>
+        @endif
+
         {{-- Error --}}
         @if($errors->any())
         <div class="alert alert-danger d-flex align-items-center gap-2 py-2 mb-3" style="border-radius:10px;font-size:.875rem">
@@ -359,8 +375,11 @@
             </div>
 
             {{-- Password --}}
-            <div class="mb-4">
-                <label class="form-label">Password</label>
+            <div class="mb-2">
+                <div class="d-flex align-items-center justify-content-between">
+                    <label class="form-label mb-0">Password</label>
+                    <a href="{{ route('password.request') }}" class="forgot-link mb-2">Lupa Kata Sandi?</a>
+                </div>
                 <div class="input-wrap">
                     <i class="bi bi-lock input-icon"></i>
                     <input type="password" name="password" id="passwordInput"
@@ -372,7 +391,7 @@
             </div>
 
             {{-- Remember --}}
-            <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-4 mt-2">
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" name="remember" id="remember"
                            style="border-color:#d1d5db;border-radius:4px">
