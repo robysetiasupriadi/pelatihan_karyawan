@@ -46,9 +46,9 @@ class MateriController extends Controller
 
     public function show(Pelatihan $pelatihan, MateriPelatihan $materi)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        // Update progress otomatis saat materi dibuka (many-to-many pivot)
         if ($user->isKaryawan()) {
             $existing = $user->materiProgress()
                 ->wherePivot('materi_id', $materi->id)
@@ -109,6 +109,7 @@ class MateriController extends Controller
     // Tandai materi selesai (many-to-many pivot update)
     public function selesaikan(Pelatihan $pelatihan, MateriPelatihan $materi)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $user->materiProgress()->syncWithoutDetaching([

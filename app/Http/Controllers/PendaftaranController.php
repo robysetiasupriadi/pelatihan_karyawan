@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Auth;
 
 class PendaftaranController extends Controller
 {
-    // Daftar pendaftaran — admin: semua, trainer: hanya pelatihan yang dia ajar
     public function index(Request $request)
     {
+        /** @var \App\Models\User $user */
         $user  = Auth::user();
 
         $pendaftaran = Pendaftaran::with('user', 'pelatihan')
@@ -32,6 +32,7 @@ class PendaftaranController extends Controller
     // Karyawan daftar ke pelatihan (many-to-many attach)
     public function daftar(Request $request, Pelatihan $pelatihan)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         // Cek sudah terdaftar
@@ -60,6 +61,7 @@ class PendaftaranController extends Controller
     // Batalkan pendaftaran (karyawan)
     public function batalkan(Pelatihan $pelatihan)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $pendaftaran = Pendaftaran::where('pelatihan_id', $pelatihan->id)
@@ -82,6 +84,7 @@ class PendaftaranController extends Controller
         ]);
 
         // Trainer hanya boleh proses pendaftaran di pelatihan yang dia ajar
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         if ($user->isTrainer()) {
             $isTrainernya = $pendaftaran->pelatihan->trainers()
@@ -118,6 +121,7 @@ class PendaftaranController extends Controller
             'status' => ['required', 'in:disetujui,ditolak'],
         ]);
 
+        /** @var \App\Models\User $user */
         $user         = Auth::user();
         $pendaftarans = Pendaftaran::whereIn('id', $request->ids)->get();
 
